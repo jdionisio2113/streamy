@@ -1,14 +1,16 @@
-const INITIAL_STATE = {
-    isSignedIn: null
-}
+import { SIGN_IN, SIGN_OUT } from '../actions/types';
 
-export default (state = INITIAL_STATE, action) => {
+const INTIAL_STATE = {
+    isSignedIn: null
+};
+
+export default (state = INTIAL_STATE, action) => {
     switch (action.type) {
-        case 'SIGN_IN':
-            return { ...state, isSignedIn: true }
-        case 'SIGN_OUT':
-            return { ...state, isSignedOut: false }
+        case SIGN_IN:
+            return { ...state, isSignedIn: true };
+        case SIGN_OUT:
+            return { ...state, isSignedIn: false };
         default:
             return state;
     }
-}
+};
