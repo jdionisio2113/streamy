@@ -20,9 +20,12 @@ class GoogleAuth extends React.Component {
                 scope: 'email'
             })
                 .then(() => {
+                    // Assign auth instance to this.auth
                     this.auth = window.gapi.auth2.getAuthInstance();
 
+                    // Update auth state in redux store
                     this.onAuthChange(this.auth.isSignedIn.get())
+                    // Wait for authentication status to change
                     this.auth.isSignedIn.listen(this.onAuthChange);
                 })
         });
@@ -30,7 +33,7 @@ class GoogleAuth extends React.Component {
 
     onAuthChange(isSignedIn) {
         if (isSignedIn) {
-            this.props.signIn();
+            this.props.signIn(this.auth.currentUser.get().getId());
         } else {
             this.props.signOut();
         }
@@ -55,7 +58,6 @@ class GoogleAuth extends React.Component {
                 </button>
             )
         } else {
-            // console.log('signed out')
             return (
                 <button onClick={this.onSignInClick} className="ui red google button">
                     <i className="google icon" />
@@ -69,7 +71,6 @@ class GoogleAuth extends React.Component {
         return (
             <div>
                 {this.renderAuthButton()}
-                {/* Google auth */}
             </div>
         )
     }
